@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a1f5c" />
+    <title>Cómics de las propuestas | Lista 2</title>
+    <style>
+        :root {
+            --blue-900: #0a1f5c;
+            --blue-700: #123a9c;
+            --blue-500: #1e6fd9;
+            --sky: #5ab8ff;
+            --gold: #ffc63d;
+            --gold-dark: #d99a00;
+            --green: #1f9d3a;
+            --green-dark: #137a2b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 85% 5%, rgba(255, 214, 90, .45) 0, transparent 35%),
+                radial-gradient(circle at 5% 95%, rgba(31, 157, 58, .35) 0, transparent 40%),
+                linear-gradient(180deg, var(--sky) 0%, var(--blue-500) 25%, var(--blue-900) 100%);
+            background-attachment: fixed;
+            padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+        }
+
+        .wrap {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 18px 16px 48px
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            background: #fff;
+            color: var(--blue-900);
+            font-weight: 800;
+            font-size: 14px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 3px solid var(--gold);
+            box-shadow: 0 3px 0 var(--gold-dark);
+        }
+
+        .back:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 var(--gold-dark)
+        }
+
+        .logo {
+            height: 56px;
+            width: auto;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 40, .45))
+        }
+
+        header.hero {
+            text-align: center;
+            margin: 10px 0 22px
+        }
+
+        .pill {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--blue-900);
+            font-weight: 900;
+            font-size: 12px;
+            letter-spacing: .06em;
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: 2px solid #fff;
+            box-shadow: 0 3px 0 var(--gold-dark);
+        }
+
+        h1 {
+            margin-top: 14px;
+            font-size: clamp(30px, 8vw, 52px);
+            line-height: 1.02;
+            font-weight: 900;
+            -webkit-text-stroke: 2px var(--blue-900);
+            paint-order: stroke fill;
+            text-shadow: 0 4px 0 var(--blue-900), 0 8px 14px rgba(0, 0, 40, .4);
+        }
+
+        h1 span {
+            color: var(--gold)
+        }
+
+        .lead {
+            margin-top: 12px;
+            font-size: 16px;
+            text-shadow: 0 1px 3px rgba(0, 0, 40, .6)
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 4px solid #fff;
+            box-shadow: 0 6px 0 rgba(0, 0, 60, .35), 0 14px 24px rgba(0, 0, 40, .3);
+            transition: transform .15s ease;
+            text-align: left;
+            color: var(--blue-900);
+        }
+
+        .card:hover {
+            transform: translateY(-4px) rotate(-.6deg)
+        }
+
+        .card:active {
+            transform: scale(.98)
+        }
+
+        .thumb {
+            position: relative;
+            aspect-ratio: 4/5;
+            background: #e8f0ff;
+            overflow: hidden
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: var(--blue-900);
+            font-weight: 900;
+            font-size: 19px;
+            display: grid;
+            place-items: center;
+            border: 3px solid var(--blue-900);
+        }
+
+        .placeholder {
+            position: absolute;
+            inset: 0;
+            display: none;
+            place-items: center;
+            text-align: center;
+            padding: 16px;
+            font-weight: 800;
+            color: var(--blue-700);
+            background: repeating-linear-gradient(45deg, #eaf2ff, #eaf2ff 12px, #dbe8ff 12px, #dbe8ff 24px);
+        }
+
+        .thumb.missing .placeholder {
+            display: grid
+        }
+
+        .thumb.missing img {
+            display: none
+        }
+
+        .cap {
+            padding: 12px 14px 14px
+        }
+
+        .cap b {
+            display: block;
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--blue-900)
+        }
+
+        .cap small {
+            color: #4a5a8a;
+            font-size: 13px
+        }
+
+        .cta {
+            margin: 34px auto 0;
+            max-width: 520px;
+            text-align: center;
+            background: var(--blue-900);
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            padding: 22px 18px;
+        }
+
+        .cta h2 {
+            color: var(--gold);
+            font-size: 26px;
+            font-weight: 900
+        }
+
+        .cta p {
+            margin: 6px 0 16px
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 18px;
+            color: #fff;
+            background: linear-gradient(180deg, #34c759, var(--green));
+            padding: 14px 28px;
+            border-radius: 999px;
+            border: 3px solid #fff;
+            box-shadow: 0 5px 0 var(--green-dark), 0 10px 18px rgba(0, 0, 40, .35);
+        }
+
+        .btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 var(--green-dark)
+        }
+
+        /* visor */
+        .viewer {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 12, 40, .94);
+            display: none;
+            z-index: 50;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px
+        }
+
+        .viewer.open {
+            display: flex
+        }
+
+        .viewer img {
+            max-width: 100%;
+            max-height: 78vh;
+            border-radius: 12px;
+            border: 4px solid #fff;
+            background: #fff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, .6);
+            touch-action: pan-y
+        }
+
+        .vtitle {
+            margin-top: 12px;
+            font-weight: 800;
+            font-size: 17px;
+            text-align: center
+        }
+
+        .vctrl {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            align-items: center
+        }
+
+        .vbtn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            background: var(--blue-500);
+            color: #fff;
+            font-size: 24px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 4px 0 var(--blue-900);
+        }
+
+        .vbtn:active {
+            transform: translateY(2px)
+        }
+
+        .vclose {
+            position: absolute;
+            top: calc(12px + env(safe-area-inset-top));
+            right: 14px;
+            background: var(--gold);
+            color: var(--blue-900);
+            border-color: var(--blue-900)
+        }
+
+        .vcount {
+            min-width: 64px;
+            text-align: center;
+            font-weight: 800
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="topbar">
+            <a class="back" href="/">← Volver al juego</a>
+            <img class="logo" src="/logo.png" alt="" onerror="this.style.display='none'" />
+        </div>
+
+        <header class="hero">
+            <span class="pill">MUNICIPIO ESCOLAR 2027 </span>
+            <h1>Nuestras propuestas<br /><span>en cómic</span></h1>
+            <p class="lead">TOCA EL COMIC.</p>
+        </header>
+
+        <main class="grid" id="grid" aria-label="Cómics de las propuestas"></main>
+
+        <section class="cta">
+            <h2>¡Vota por SAYURI!</h2>
+            <p>JUNTOS COCHARQUINOS</p>
+
+        </section>
+    </div>
+
+    <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Cómic">
+        <button class="vbtn vclose" id="vclose" aria-label="Cerrar">✕</button>
+        <img id="vimg" alt="" />
+        <div class="vtitle" id="vtitle"></div>
+        <div class="vctrl">
+            <button class="vbtn" id="vprev" aria-label="Anterior">◀</button>
+            <span class="vcount" id="vcount"></span>
+            <button class="vbtn" id="vnext" aria-label="Siguiente">▶</button>
+        </div>
+    </div>
+
+    <script>
+        // ====== EDITA AQUÍ: tus cómics ======
+        // Guarda tus fotos en  public/comics/  y pon aquí el nombre exacto de cada archivo.
+        const COMICS = [
+            { src: '/comics/1.png', title: 'Biblioútiles', sub: 'Útiles a precios accesibles' },
+            { src: '/comics/2.png', title: 'Viernes de celular', sub: 'Uso responsable y pedagógico' },
+            { src: '/comics/3.png', title: 'Almuerzo con sabor', sub: 'Menús elegidos por ustedes' },
+            { src: '/comics/4.png', title: 'Tu voz, nuestra gestión', sub: 'Escuchamos a todos' },
+            { src: '/comics/5.png', title: 'Cuentas claras', sub: 'Transparencia en ingresos y gastos' },
+        ];
+        // =====================================
+
+        const grid = document.getElementById('grid');
+        const viewer = document.getElementById('viewer');
+        const vimg = document.getElementById('vimg');
+        const vtitle = document.getElementById('vtitle');
+        const vcount = document.getElementById('vcount');
+        let current = 0;
+
+        COMICS.forEach((c, i) => {
+            const card = document.createElement('button');
+            card.className = 'card';
+            card.type = 'button';
+            card.innerHTML =
+                '<div class="thumb"><img loading="lazy" alt="Cómic: ' + c.title + '" src="' + c.src + '" />' +
+                '<div class="badge">' + (i + 1) + '</div>' +
+                '<div class="placeholder">Falta la imagen<br>' + c.src + '</div></div>' +
+                '<div class="cap"><b>' + c.title + '</b><small>' + c.sub + '</small></div>';
+            const img = card.querySelector('img');
+            img.addEventListener('error', () => card.querySelector('.thumb').classList.add('missing'));
+            card.addEventListener('click', () => open(i));
+            grid.appendChild(card);
+        });
+
+        function show() {
+            const c = COMICS[current];
+            vimg.src = c.src;
+            vimg.alt = 'Cómic: ' + c.title;
+            vtitle.textContent = c.title;
+            vcount.textContent = (current + 1) + ' / ' + COMICS.length;
+        }
+        function open(i) { current = i; show(); viewer.classList.add('open'); document.body.style.overflow = 'hidden'; }
+        function close() { viewer.classList.remove('open'); document.body.style.overflow = ''; }
+        function step(d) { current = (current + d + COMICS.length) % COMICS.length; show(); }
+
+        document.getElementById('vclose').onclick = close;
+        document.getElementById('vprev').onclick = () => step(-1);
+        document.getElementById('vnext').onclick = () => step(1);
+        viewer.addEventListener('click', (e) => { if (e.target === viewer) close(); });
+        window.addEventListener('keydown', (e) => {
+            if (!viewer.classList.contains('open')) return;
+            if (e.key === 'Escape') close();
+            if (e.key === 'ArrowLeft') step(-1);
+            if (e.key === 'ArrowRight') step(1);
+        });
+
+        let sx = null;
+        viewer.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+        viewer.addEventListener('touchend', (e) => {
+            if (sx === null) return;
+            const dx = e.changedTouches[0].clientX - sx;
+            if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+            sx = null;
+        });
+    </script>
+</body>
+
+</html>
