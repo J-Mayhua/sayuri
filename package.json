@@ -4,11 +4,13 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "node init && vite",
+    "build": "node init && tsc && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
+    "node-fetch": "^3.3.2",
     "typescript": "^5.7.2",
     "vite": "^6.0.5"
   }
