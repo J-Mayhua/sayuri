@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a1f5c" />
+  <meta name="description"
+    content="Sal del colegio: descubre las 5 propuestas de la Lista 2 y llega al portón. Municipio Escolar 2027." />
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a1f5c'/%3E%3Cpath d='M32 10l6.4 14.3 15.6 1.6-11.7 10.4 3.3 15.4L32 43.9 18.4 51.7l3.3-15.4L10 25.9l15.6-1.6z' fill='%23ffc63d'/%3E%3C/svg%3E" />
+  <link rel="preload" as="image" href="./mapa.webp" type="image/webp" />
+  <link rel="stylesheet" href="/src/start-theme.css" />
+  <title>Sal del colegio | Lista 2</title>
+</head>
+
+<body>
+  <div id="app">
+    <canvas id="game" aria-label="Mapa del colegio"></canvas>
+
+    <header id="hud" class="hud hidden">
+      <div class="hud-brand">
+        <span class="hud-dot"></span>
+        <span>SAL DEL COLEGIO</span>
+      </div>
+      <div class="hud-counter" aria-live="polite">
+        Propuestas: <strong id="counter">0/5</strong>
+      </div>
+      <button id="btn-sound" class="icon-btn" type="button" aria-label="Activar o silenciar sonido">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path d="M4 9v6h3.5L13 19V5L7.5 9H4z" fill="currentColor" />
+          <path class="sound-waves" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path class="sound-off" d="M16.5 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" />
+        </svg>
+      </button>
+    </header>
+
+    <section id="start-screen" class="overlay start-screen">
+      <div class="start-inner">
+        <img class="start-logo"
+          src="/public/image.png" alt="Logo de Sal del colegio" />
+        <div class="campaign-pill">MUNICIPIO ESCOLAR 2027</div>
+        <h1 class="game-title">
+          <span>SAL DEL</span>
+          <span>COLEGIO</span>
+        </h1>
+        <p class="start-copy">
+          Estás atrapado en el colegio. Descubre las 5 propuestas para salir.
+        </p>
+
+        <p class="pick-label">Elige tu avatar</p>
+        <div class="avatars" role="radiogroup" aria-label="Elige tu avatar">
+          <button class="avatar-card is-selected" type="button" data-avatar="chico" role="radio" aria-checked="true">
+            <canvas class="avatar-canvas" data-preview="chico" width="120" height="150"></canvas>
+            <span>Chico</span>
+          </button>
+          <button class="avatar-card" type="button" data-avatar="chica" role="radio" aria-checked="false">
+            <canvas class="avatar-canvas" data-preview="chica" width="120" height="150"></canvas>
+            <span>Chica</span>
+          </button>
+        </div>
+
+        <button id="btn-play" class="btn primary start-btn" type="button">¡Jugar!</button>
+        <p class="start-hint">Usa las flechas del teclado o los botones del celular</p>
+      </div>
+    </section>
+
+    <div id="loading" class="loading hidden" aria-hidden="true">
+      <span class="spinner"></span>
+      <span>Cargando el colegio…</span>
+    </div>
+
+    <div id="modal" class="overlay modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-card">
+        <p class="eyebrow">PROPUESTA <span id="modal-index">1</span> DE 5</p>
+        <h2 id="modal-title"></h2>
+        <p id="modal-phrase"></p>
+        <button id="modal-close" class="btn primary" type="button">¡Entendido!</button>
+      </div>
+    </div>
+
+    <section id="win-screen" class="overlay win-screen hidden">
+      <div class="win-card">
+        <p class="campaign-pill dark">MUNICIPIO ESCOLAR 2027</p>
+        <h2>¡Lo lograste!</h2>
+        <p class="win-lead">Vota por la <strong>LISTA 2</strong></p>
+
+        <div class="list-badge">
+          <span class="list-label">NÚMERO DE LISTA</span>
+          <span id="list-number" class="list-number">2</span>
+        </div>
+
+        <p class="vote-date">Fecha de votación: <strong id="vote-date">Noviembre de 2027</strong></p>
+
+        <button id="btn-whatsapp" class="btn whatsapp" type="button">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor"
+              d="M12 2a9.9 9.9 0 0 0-8.5 15L2 22l5.1-1.4A10 10 0 1 0 12 2zm5.4 14.1c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.6-4.1-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.4.6-.5.5c-.1.1-.3.3-.1.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.6-.1l.8-1c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.4.3.1.1.1.6-.1 1.2z" />
+          </svg>
+          Compartir por WhatsApp
+        </button>
+        <button id="btn-replay" class="btn ghost" type="button">Volver a jugar</button>
+      </div>
+    </section>
+
+    <div id="dpad" class="dpad hidden" aria-label="Controles de movimiento">
+      <button class="dpad-btn dpad-up" type="button" data-dir="up" aria-label="Arriba">▲</button>
+      <button class="dpad-btn dpad-left" type="button" data-dir="left" aria-label="Izquierda">◀</button>
+      <button class="dpad-btn dpad-down" type="button" data-dir="down" aria-label="Abajo">▼</button>
+      <button class="dpad-btn dpad-right" type="button" data-dir="right" aria-label="Derecha">▶</button>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

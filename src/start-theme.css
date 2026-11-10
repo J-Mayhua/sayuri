@@ -1,0 +1,123 @@
+/* Tema "Juntos Cocharquinos": azul, dorado, verde y blanco */
+:root {
+    --c-blue-900: #0a1f5c;
+    --c-blue-700: #123a9c;
+    --c-blue-500: #1e6fd9;
+    --c-sky: #5ab8ff;
+    --c-gold: #ffc63d;
+    --c-gold-dark: #d99a00;
+    --c-green: #1f9d3a;
+    --c-green-dark: #137a2b;
+    --c-red: #d91023;
+    /* rojo bandera, solo acentos */
+}
+
+#app .start-screen {
+    background:
+        radial-gradient(circle at 80% 8%, rgba(255, 214, 90, 0.55) 0, transparent 38%),
+        radial-gradient(circle at 10% 90%, rgba(31, 157, 58, 0.35) 0, transparent 40%),
+        linear-gradient(180deg, var(--c-sky) 0%, var(--c-blue-500) 38%, var(--c-blue-900) 100%);
+    color: #fff;
+    overflow-y: auto;
+}
+
+.start-logo {
+    display: block;
+    width: min(62vw, 200px);
+    max-height: 30vh;
+    object-fit: contain;
+    margin: 0 auto 6px;
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 40, 0.45));
+}
+
+#app .campaign-pill {
+    background: var(--c-gold);
+    color: var(--c-blue-900);
+    border: 2px solid #fff;
+    box-shadow: 0 3px 0 var(--c-gold-dark);
+}
+
+#app .campaign-pill.dark {
+    background: var(--c-blue-900);
+    color: var(--c-gold);
+    border-color: var(--c-gold);
+    box-shadow: none;
+}
+
+#app .game-title {
+    font-size: clamp(58px, 8vw, 64px);
+    line-height: 1;
+    -webkit-text-stroke: 1.5px var(--c-blue-900);
+}
+
+#app .game-title span:last-child {
+    color: var(--c-gold);
+}
+
+#app .start-copy,
+#app .pick-label,
+#app .start-hint {
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 40, 0.6);
+}
+
+#app .avatar-card {
+    background: #fff;
+    color: var(--c-blue-900);
+    border: 3px solid transparent;
+    box-shadow: 0 4px 0 rgba(0, 0, 60, 0.35);
+}
+
+#app .avatar-card.is-selected {
+    border-color: #0b5d1e;
+    background: #d9f5e0;
+    box-shadow: 0 0 0 4px #0b5d1e, 0 6px 0 #063d13;
+    transform: translateY(-3px) scale(1.04);
+}
+
+#app .btn.primary {
+    background: linear-gradient(180deg, #34c759 0%, var(--c-green) 100%);
+    color: #fff;
+    border: 3px solid #fff;
+    box-shadow: 0 5px 0 var(--c-green-dark), 0 10px 18px rgba(0, 0, 40, 0.35);
+}
+
+#app .btn.primary:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 var(--c-green-dark);
+}
+
+/* HUD y pantallas siguientes en la misma paleta */
+#app .hud {
+    background: var(--c-blue-900);
+    color: #fff;
+    border-bottom: 3px solid var(--c-gold);
+}
+
+#app .hud-dot {
+    background: var(--c-gold);
+}
+
+#app .hud-counter strong {
+    color: var(--c-gold);
+}
+
+#app .modal-card,
+#app .win-card {
+    border-top: 6px solid var(--c-gold);
+}
+
+#app .modal-card .eyebrow {
+    color: var(--c-blue-700);
+}
+
+#app .modal-card h2,
+#app .win-card h2 {
+    color: var(--c-blue-900);
+}
+
+#app .list-badge {
+    background: var(--c-blue-900);
+    color: var(--c-gold);
+    border: 3px solid var(--c-gold);
+}
