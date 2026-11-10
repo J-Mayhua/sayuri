@@ -170,7 +170,7 @@ export const CONFIG = {
     fechaVotacion: 'Noviembre de 2027',
     institucion: 'I.E. Nuestra Señora de Cocharcas',
     shareText:
-      'Jugué "Sal del colegio" y descubrí las 5 propuestas de la LISTA 2 del Municipio Escolar 2027 de la I.E. Nuestra Señora de Cocharcas. ¡Vota LISTA 2!',
+      'Jugué "Mis Propuestas" y descubrí las 5 propuestas de JUNTOS COCHARQUINOS del Municipio Escolar 2027 de la I.E. Nuestra Señora de Cocharcas. ¡Vota SAYURI!',
   },
 };
 
